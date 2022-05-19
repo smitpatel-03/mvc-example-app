@@ -1,7 +1,7 @@
 const express = require("express");
 const friendRouter = require("./routes/friend.route");
 const messageRouter = require("./routes/message.route");
-
+const path = require("path");
 const app = express();
 
 app.use((req, res, next) => {
@@ -14,10 +14,10 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+app.use("/site", express.static(path.join(__dirname, "public")));
 
 app.use("/friends", friendRouter);
 app.use("/messages", messageRouter);
-
 
 app.get("/", (req, res) => {
   res.send("<h1> go to friends</h1>");
