@@ -1,14 +1,8 @@
 const express = require("express");
-
-//controllers
-const messagesController = require("./controllers/messages.controller");
-const friendsController = require("./controllers/friends.controller");
+const friendRouter = require("./routes/friend.route");
+const messageRouter = require("./routes/message.route");
 
 const app = express();
-
-// app.use(bodyParser.urlencoded({extended : false}))
-
-
 
 app.use((req, res, next) => {
   const start = Date.now();
@@ -21,15 +15,9 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-app.post("/friends", friendsController.postFriend);
+app.use("/friends", friendRouter);
+app.use("/messages", messageRouter);
 
-app.get("/friends", friendsController.getFriends);
-
-app.get("/friends/:friendId", friendsController.getFriend);
-
-app.get("/messages", messagesController.getMessages);
-
-app.post("/messages", messagesController.postMessages);
 
 app.get("/", (req, res) => {
   res.send("<h1> go to friends</h1>");
